@@ -13,12 +13,13 @@ def volcano_plot(df, logFC, adjpval, pvalcut, FCcut, label, label_num=10):
     param: FCcut - threshold for logFC
     param: label - column name with gene names
     param: label_num - [int, "All"] how many labels to plot, default 10 top logFC.
+
+    """
     
     fig=plt.figure(dpi=600)
     ax = plt.axes()
     ax.set_facecolor("white")
     plt.scatter(x=df[logFC],y=df[adjpval].apply(lambda x:-np.log10(x)),s=3,label="Not significant", color=sns.color_palette("dark")[8], alpha=0.6)
-    # highlight down- or up- regulated genes
     down = df[(df[logFC]<=-FCcut)&(df[adjpval]<=pvalcut)]
     up = df[(df[logFC]>=FCcut)&(df[adjpval]<=pvalcut)]
 
